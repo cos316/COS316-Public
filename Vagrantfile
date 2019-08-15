@@ -32,14 +32,14 @@ Vagrant.configure(2) do |config|
   # Synced Assignment Directories
   # Replace "<path>" with the actual path from the vagrantfile to your cloned
   # assignment directory, and uncomment the line for the appropriate assignment:
-  
-  # config.vm.synced_folder "<path to A1 repo>", "/assignment1"
-  # config.vm.synced_folder "<path to A2 repo>", "/assignment2"
-  # config.vm.synced_folder "<path to A3 repo>", "/assignment3"
-  # config.vm.synced_folder "<path to A4 repo>", "/assignment4"
-  # config.vm.synced_folder "<path to A5 repo>", "/assignment5"
-  # config.vm.synced_folder "<path to A6 repo>", "/assignment6"
-  # config.vm.synced_folder "<path to A7 repo>", "/assignment7"
+
+  # config.vm.synced_folder "<path to A1 repo>", "/vagrant/assignments/assignment1"
+  # config.vm.synced_folder "<path to A2 repo>", "/vagrant/assignments/assignment2"
+  # config.vm.synced_folder "<path to A3 repo>", "/vagrant/assignments/assignment3"
+  # config.vm.synced_folder "<path to A4 repo>", "/vagrant/assignments/assignment4"
+  # config.vm.synced_folder "<path to A5 repo>", "/vagrant/assignments/assignment5"
+  # config.vm.synced_folder "<path to A6 repo>", "/vagrant/assignments/assignment6"
+  # config.vm.synced_folder "<path to A7 repo>", "/vagrant/assignments/assignment7"
 
 
 

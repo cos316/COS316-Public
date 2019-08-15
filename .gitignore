@@ -1,0 +1,7 @@
+# A .gitignore file is a list of files that should be ignored by git.
+# Files or directories that match one of the patterns in this file will
+# not be included in git commits or pushes.
+
+
+# Ignore files created during VM setup
+.vagrant

@@ -1,0 +1,49 @@
+[webserver]
+port = ":7070"
+
+# register data providers
+[[providers]]
+name = "bonn"           # provider name is referenced from map layers
+type = "postgis"        # the type of data provider. currently only supports postgis
+host = "localhost"      # postgis database host
+port = 5432             # postgis database port
+database = "bonn"       # postgis database name
+user = "tegola"         # postgis database user
+password = "cos316"           # postgis database password
+srid = 4326             # The default srid for this provider. If not provided it will be WebMercator (3857)
+
+  [[providers.layers]]
+  name = "road"
+  geometry_fieldname = "wkb_geometry"
+  id_fieldname = "ogc_fid"
+  sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM all_roads WHERE wkb_geometry && !BBOX!"
+
+  [[providers.layers]]
+  name = "main_roads"
+  geometry_fieldname = "wkb_geometry"
+  id_fieldname = "ogc_fid"
+  sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM main_roads WHERE wkb_geometry && !BBOX!"
+
+  [[providers.layers]]
+  name = "lakes"
+  geometry_fieldname = "wkb_geometry"
+  id_fieldname = "ogc_fid"
+  sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM lakes WHERE wkb_geometry && !BBOX!"
+
+[[maps]]
+name = "bonn"
+
+  [[maps.layers]]
+  provider_layer = "bonn.road"
+  min_zoom = 10
+  max_zoom = 20
+
+  [[maps.layers]]
+  provider_layer = "bonn.main_roads"
+  min_zoom = 5
+  max_zoom = 20
+
+  [[maps.layers]]
+  provider_layer = "bonn.lakes"
+  min_zoom = 5
+  max_zoom = 20
