@@ -240,3 +240,62 @@ line endings.
 ### Go take a break. You've earned it!
 
 You're all set to start working on assignment 1!
+
+## FAQ & Troubleshooting:
+
+* **I'm getting an error when I run the command `vagrant up`. What do I do?**
+
+  Many errors/warnings are not a problem and do not need to be addressed, such as
+  `==> default: stdin: is not a tty`.
+  Usually, errors starting with `==> default` should not concern you,
+  but others should, in particular if they cause the process to be aborted.
+
+  Use `vagrant status` to see if the VM is running after `vagrant up`;
+  if it is not, then there is a real problem. Here are some known errors and how
+  to fix them:
+
+    * **"A Vagrant environment or target machine is required to run this command..."**:
+
+      You must run `vagrant up` from a subdirectory of the directory containing
+      the Vagrantfile (in this case, `COS316-Public`).
+
+    * **"Vagrant cannot forward the specified ports on this VM, since they would
+      collide with some other application that is already listening on these ports..."**:
+
+      Perhaps you cloned the repository twice and the VM is already running on
+      one of them. Since they both use the same port, they cannot run at the same
+      time. You may also have some other application using port 8888.
+
+      To help find what is using it, follow
+      [these](http://osxdaily.com/2014/05/20/port-scanner-mac-network-utility/) instructions for macOS,
+      [these](https://techtalk.gfi.com/scan-open-ports-in-windows-a-quick-guide/) for Windows and
+      [these](https://wiki.archlinux.org/index.php/Nmap#Port_scan) for Linux (you may have to install `nmap`).
+      Use 127.0.0.1 as the IP and 8888-8888 as the port range in your port scan.
+
+    * **"VBoxManage.exe: error: Details: code E_FAIL (0x80004005), component
+    MachineWrap, interface IMachine"**:
+
+      Try rebooting your host machine (i.e. your laptop). If this fails to fix the
+      issue, you may have other virtualization software installed that conflicts
+      with Vagrant or VirtualBox, which you will need to disable.
+
+    * **"Windows detected. Remember to set DISPLAY"**:
+
+      This relates to the X11 server you installed in a previous step.
+      We are not using the X11 server for this assignment, so you can ignore this
+      message for now.
+
+  If this did not help you fix the problem, please ask on Piazza or at office hours.
+
+* **I'm using Cmder on Windows, and the terminal window is flickering rapidly when
+  I'm connected to the virtual machine**
+
+  This is a [known issue](https://github.com/Maximus5/ConEmu/issues/1625) that
+  happens especially when trying to use a terminal application like Emacs or vim.
+  The root cause is an incompatibility between the Windows OpenSSH implementation
+  (which is likely preinstalled on your machine) and the ConEmu software underlying
+  Cmder. You will have to uninstall Windows' version of OpenSSH by following
+  [these directions](https://github.com/Maximus5/ConEmu/issues/1625#issuecomment-413459750).
+
+  This is no great loss, as you've already installed a more reliable SSH client
+  as part of the VM setup steps above.
