@@ -120,7 +120,7 @@ If you cloned using `git clone` from the command-line, the default path will
 be a subdirectory of whatever your working directory was what you ran the command.
 
 You should feel free to add, remove, or restructure synced folders as desired to
-suit your desired workflow. 
+suit your desired workflow.
 
 The next time you start your VM, your assignment files will be accessible in
 `/assignmentN`, where N is the number of the assignment.
