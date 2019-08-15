@@ -4,7 +4,8 @@
 
 Welcome to COS 316: Principles of Computer System Design!
 
-Through this and the following  assignments, you will gain hands-on experience with real-world systems and network programming:
+Through this and the following  assignments, you will gain hands-on experience
+with real-world systems and network programming:
 
 * You will write a program that allows your computer to communicate with another,
   be it across the room or across the world.
@@ -29,125 +30,17 @@ Let's get started!
 
 The first part of this assignment is to set up the virtual machine (VM) you will
 use for the rest of the course. This will make it easy to install all dependencies
-for the programming assignments, saving you the tedium of installing individual packages and ensuring your development environment is correct.
+for the programming assignments, saving you the tedium of installing individual
+packages and ensuring your development environment is correct.
 
-### Install Vagrant
+### Install Required Software
 
-Vagrant is a tool for automatically configuring a VM using instructions given in a
-single "Vagrantfile."
+Before you can set up your VM, you will have to install several required software
+packages. Follow the instructions for your operating system below:
 
-* **Mac users**: Download and install [Vagrant](https://www.vagrantup.com/downloads.html).
-
-* **Windows users**: Download and install [Vagrant](https://www.vagrantup.com/downloads.html).
-  You will be asked to restart your computer at the end of the installation.
-  Click Yes to do so right away, or restart manually later, but don't forget to
-  do so or Vagrant will not work! (We will prompt you again, later in this
-  document, when it's necessary for you to restart your computer.)
-
-* **Linux users**: First, make sure your package installer is up to date by
-running the command `sudo apt-get update`. To install Vagrant, you must have the
-"Universe" repository on your computer; run `sudo apt-add-repository universe`
-to add it. Finally, run `sudo apt-get install vagrant` to install vagrant.
-
-### Install VirtualBox
-
-VirtualBox is a VM provider (hypervisor).
-
-* **Mac users**: Download and install [VirtualBox platform packages](https://www.virtualbox.org/wiki/Downloads).
-  During the installation process you may see one or more messages from the
-  operating system that VirtualBox is requesting access to certain system features.
-  This is normal. The installation may fail the first time around, and prompt you
-  to allow VirtualBox this access via the Security tab of System Preferences.
-  Click the "Allow" button at the bottom of the window, and run the installer again.
-  This time it should finish without issue.
-
-* **Windows users**: Download and install [VirtualBox platform packages](https://www.virtualbox.org/wiki/Downloads).
-  Use all the default installation settings, but you can uncheck the "Start Oracle VirtualBox 6.x.x after installation" checkbox.
-
-* **Linux users**: Run the command `sudo apt-get install virtualbox`.
-
-Note: This will also install the VirtualBox application on your computer. You should never need to run it, though it is a useful piece of software and it may be helpful.
-
-### Install Git (and SSH-capable terminal on Windows)
-
-Git is a distributed version control system. This course does not require any
-knowledge of Git (all commands you need to know will be provided). However, if
-you aren't familiar with Git, you should consider learning more. Good version
-control is an invaluable tool for any software developer, and you will find it
-extremely useful for future courses (e.g. COS333, COS426).
-
-* **Mac users:** Download [Git](https://git-scm.com/downloads).
-  When you open the .dmg installation file, you will see a Finder window including
-  a `.pkg` file, which is the installer. Opening this normally may give you a
-  prompt saying it can't be opened because it is from an unidentified developer.
-  To override this protection, instead right-click on that `.pkg` file and select
-  "Open". This will show a prompt asking you if you are sure you want to open it.
-  Select "Yes". This will take you to the (straightforward) installation.
-
-  * Depending on your version of macOS, Terminal may also prompt you to install
-    macOS's command-line developer tools from the App Store. We recommend skipping
-    this and installing Git directly, so you can be sure the version of Git you
-    have installed is as current as possible. That said, we will be using only
-    the most basic functionality of Git in this course, so if you have already
-    installed developer tools, either version should suffice.
-
-* **Windows users:** There are several Git and SSH-capable terminals available
-  for Windows. Which you choose is a matter of personal taste.
-  My personal recommendation is to use Cmder, a terminal supporting several
-  shells that may make your life as a Windows developer less painful. Whichever
-  option you choose, *you only need to install Git __once__, using __one__ of the
-  options below.*
-
-  * **Installing vanilla Git:** You will be given many options to choose from
-    during the installation; using all the defaults will be sufficient for this
-    course (you can uncheck "View release notes" at the end).
-    The installation includes an SSH-capable Bash terminal usually located at
-    `C:\Program Files\Git\bin\bash.exe`.
-
-    You should use this as your terminal in this class, unless you prefer another SSH-
-    capable terminal (the Windows command prompt `cmd.exe` will not work). Feel free to
-    create a shortcut to it, but copying and pasting the executable somewhere else will
-    not work.
-    You may also right-click within a directory in Windows Explorer and select
-    "Git Bash here" to open a bash terminal in that directory.
-
-  * **Installing Git via Cmder:** Download [Cmder](https://cmder.net/).
-    Be sure to select the *Full installation*, and *not* the Mini installation,
-    which does not include Git. Follow the directions on the site; that is,
-    extract the zip file to a directory of your choosing. If in doubt, `C:\cmder`
-    will suffice. Feel free to make a shortcut to `cmder.exe` for easier access.
-
-    At this point you are done, but if you so desire, you may optionally
-    [configure your `PATH` and other environment variables](https://github.com/cmderdev/cmder/wiki/Setting-up-Environment-Variables)
-    and/or [add Cmder to your right-click context menu](https://github.com/cmderdev/cmder/blob/master/README.md#context-menu-integration).
-
-  * **Other options for Windows:** In recent years Microsoft has taken steps to make
-    Windows more "developer-friendly", including initiatives like
-    [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/about),
-    [Windows Terminal 2019](https://devblogs.microsoft.com/commandline/introducing-windows-terminal/),
-    and a native [Windows OpenSSH-based SSH client](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse).
-    You may use these if you can get them working, but your mileage may vary, and course staff can't guarantee they will work as expected.
-
-* **Linux users:** Run `sudo apt-get install git`.
-
-### Install X Server
-
-You will need an X Server to input certain commands to the virtual machine.
-
-* **Mac users:** Install [XQuartz](https://www.xquartz.org/).
-  Log out and log back in to complete the installation
-  (as mentioned by the prompt at the end).
-
-* **Windows users:** Install [Xming](https://sourceforge.net/projects/xming/files/Xming/6.9.0.31/Xming-6-9-0-31-setup.exe/download).
-  Use default options and uncheck "Launch Xming" at the end.
-
-* **Linux users:** The X server is pre-installed!
-
-### Restart your computer
-
-If you are a Windows user and you have not restarted your computer in a previous step, do so now, or your newly-installed software may not work.
-
-If you are a Mac user and you have not logged out and back in the previous step, do so now.
+* [Windows](WINDOWS.md)
+* [Mac OS](MAC.md)
+* [Linux](LINUX.md)
 
 ### Clone course Git repository
 
@@ -283,7 +176,8 @@ You're all set to start working on assignment 1!
 
       This relates to the X11 server you installed in a previous step.
       We are not using the X11 server for this assignment, so you can ignore this
-      message for now.
+      message for now. If you are not using Windows, this message is erroneous
+      and should be ignored.
 
   If this did not help you fix the problem, please ask on Piazza or at office hours.
 
@@ -291,7 +185,7 @@ You're all set to start working on assignment 1!
   I'm connected to the virtual machine**
 
   This is a [known issue](https://github.com/Maximus5/ConEmu/issues/1625) that
-  happens especially when trying to use a terminal application like Emacs or vim.
+  is especially pronounced when trying to use a terminal application like Emacs or vim.
   The root cause is an incompatibility between the Windows OpenSSH implementation
   (which is likely preinstalled on your machine) and the ConEmu software underlying
   Cmder. You will have to uninstall Windows' version of OpenSSH by following
