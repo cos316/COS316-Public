@@ -50,7 +50,7 @@ extremely useful for future courses (e.g. COS333, COS426).
 
 You will need an X Server to input certain commands to the virtual machine.
 
-* **Mac users:** Install [XQuartz](https://www.xquartz.org/).
+* Install [XQuartz](https://www.xquartz.org/).
   Log out and log back in to complete the installation
   (as mentioned by the prompt at the end).
 

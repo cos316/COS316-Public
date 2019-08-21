@@ -17,7 +17,7 @@ VirtualBox is a VM provider (hypervisor).
 
 * Download and install [VirtualBox platform packages](https://www.virtualbox.org/wiki/Downloads).
   Use all the default installation settings, but you can uncheck the "Start Oracle
-  VirtualBox 6.x.x after installation" checkbox.
+  VirtualBox after installation" checkbox.
 
 Note: This will also install the VirtualBox application on your computer.
 You should never need to run it, though it is a useful piece of software and
@@ -38,7 +38,8 @@ shells that may make your life as a Windows developer less painful. Whichever
 option you choose, *you only need to install Git __once__, using __one__ of the
 options below.*
 
-* **Installing vanilla Git:** You will be given many options to choose from
+* **Installing vanilla Git:** Download [Git](https://git-scm.com/downloads).
+  You will be given many options to choose from
   during the installation; using all the defaults will be sufficient for this
   course (you can uncheck "View release notes" at the end).
   The installation includes an SSH-capable Bash terminal usually located at
