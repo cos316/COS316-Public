@@ -16,7 +16,9 @@ end
 Vagrant.configure(2) do |config|
 
   # 64 bit Ubuntu Vagrant Box
-  config.vm.box = "ubuntu/trusty64"
+  #config.vm.box = "ubuntu/trusty64"
+  #config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "ubuntu/bionic64"
 
   ## Configure hostname and port forwarding
   config.vm.hostname = "cos316"
@@ -57,78 +59,45 @@ Vagrant.configure(2) do |config|
 
   ## Provisioning
   config.vm.provision "shell", inline: <<-SHELL
+
+    # Ask politely for apt-get not to expect any user input (hide "stdin" error msgs)
+    export DEBIAN_FRONTEND=noninteractive
+
+    # Ask less politely.
+    debconf="/etc/apt/apt.conf.d/70debconf"
+    sudo sed -i.bak "s|^DPkg::Pre-Install|//&|" $debconf # comment old preconfigure
+    echo 'DPkg::Pre-Install-Pkgs {"/usr/sbin/dpkg-preconfigure --frontend=noninteractive --terse --apt || true";};' >> $debconf
+
+    # disp "APT Updates"
+    sudo add-apt-repository -y ppa:gophers/archive 2> /dev/null # For Go 1.11
+    sudo apt-get -yq -o=Dpkg::Use-Pty=0 update
+    sudo apt-get -yq -o=Dpkg::Use-Pty=0 upgrade
+
+    # Alias apt-get installer with options to suppress useless output, progress bars
+    install="sudo -E apt-get -yq -o=Dpkg::Use-Pty=0 install"
+
     # install programs needed for setup + testing
-    sudo apt-get install -y toilet
-    sudo apt-get install -y jq
+    $install toilet
     disp() { toilet -f mono9 $1; }
     disp "Welcome to COS316"
 
-    # disp "APT Updates"
+    $install jq
+    disp "Emacs 25"
+    $install emacs-nox
 
-    # Add MySQL repository to APT
-    MYSQL_REPO=http://repo.mysql.com/apt/ubuntu/
-    MYSQL_SOURCES=/etc/apt/sources.list.d/mysql.list
-    touch "${MYSQL_SOURCES}"
-    if grep -q "${MYSQL_REPO}" "${MYSQL_SOURCES}"; then
-      echo "MySQL repo already up to date. Skipping..."
-    else
-      echo "Adding MySQL repo..."
-      sudo apt-key add /vagrant/config_files/mysql-key
-      echo "deb ${MYSQL_REPO} trusty mysql-5.7" >> "${MYSQL_SOURCES}"
-    fi
-
-    # Add PostgreSQL repo to APT
-    POSTGRES_REPO=http://apt.postgresql.org/pub/repos/apt
-    POSTGRES_SOURCES=/etc/apt/sources.list
-    if grep -q "${POSTGRES_REPO}" "${POSTGRES_SOURCES}"; then
-      echo "PostgreSQL repo already up to date. Skipping..."
-    else
-      echo "Adding PostgreSQL repo..."
-      echo "deb ${POSTGRES_REPO} trusty-pgdg main" >> ${POSTGRES_SOURCES}
-      wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -
-    fi
-
-    # COS 316 Assignments
-    # Assignment 1
-    sudo add-apt-repository ppa:gophers/archive # For Go 1.11
-    sudo apt-get update
-    sudo apt-get -y upgrade
-    disp "Emacs"
-    sudo apt-get install -y emacs
-
-
-    # echo "export PYTHONPATH=${PYTHONPATH}:/vagrant/course-bin" >> /home/vagrant/.profile
-
-    # Set correct permissions for bash scripts
-    find /vagrant -name "*.sh" | xargs chmod -v 744
-
-    # If the repository was pulled from Windows, convert line breaks to Unix-style
-    sudo apt-get install -y dos2unix
-    printf "Using dos2unix to convert files to Unix format if necessary..."
-    find /vagrant -name "*" -type f | xargs dos2unix -q
-
-    # Install Go 1.11, the most recent for Ubuntu 14.04
     disp "Go v1.11"
-    sudo apt-get install -y golang-1.11-go
+    $install golang-1.11-go
     echo "export PATH=${PATH}:/usr/lib/go-1.11/bin:/go/bin" >> /home/vagrant/.profile
     echo "export GOPATH='/go'" >> /home/vagrant/.profile
     # echo "export GO111MODULE=auto" >> /home/vagrant/.profile
     source /home/vagrant/.profile # Make sure go environment variables are set
 
-    # Install MySQL (for Tinode), skipping interactive configuration
-    # Note: The default password is obviously not secure. In a real application
-    # we would want to change it, but for our purposes this is "good enough"
     disp "MySQL 5.7"
-    MYSQL_PWD="cos316"
-    sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password ${MYSQL_PWD}"
-    sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password ${MYSQL_PWD}"
-    sudo debconf-set-selections <<< "mysql-community-server mysql-community-server/root-pass password ${MYSQL_PWD}"
-    sudo debconf-set-selections <<< "mysql-community-server mysql-community-server/re-root-pass password ${MYSQL_PWD}"
-    sudo apt-get -y install mysql-server
+    $install mysql-server-5.7
 
-    # Download and install Tinode chat server
     disp "Tinode"
-    sudo apt-get install -y git
+    $install git
+
     printf "Downloading tinode server... This may take some time."
     go get -tags mysql github.com/tinode/chat/server && go install -tags mysql github.com/tinode/chat/server && echo "tinode server installed"
     go get -tags mysql github.com/tinode/chat/tinode-db && go install -tags mysql github.com/tinode/chat/tinode-db && echo "tinode-db installed"
@@ -150,7 +119,7 @@ Vagrant.configure(2) do |config|
     printf "Done downloading tinode server"
 
     # Set up the static web files required by tinode
-    sudo apt-get install -y unzip
+    $install unzip
     tinode-db -config=${TINODE_PATH}/tinode-db/tinode.conf -data=${TINODE_PATH}/tinode-db/data.json
     if [ ! -d $TINODE_STATIC ]; then
       echo "Downloading tinode-chat static files..."
@@ -175,13 +144,12 @@ Vagrant.configure(2) do |config|
     tar xzf flottbot.tgz
     echo "Flottbot installed successfully."
 
-    # Install PostgreSQL and PostGIS
-    disp "PostgreSQL"
-    sudo apt-get install -y postgresql-10
-    sudo apt-get install -y postgresql-10-postgis-2.4
-    sudo apt-get install -y postgresql-10-postgis-2.4-scripts
+    # disp "PostgreSQL"
+    $install postgresql-10
+    $install postgresql-10-postgis-2.4
+    $install postgresql-10-postgis-2.4-scripts
 
-    # Install Tegola
+    # # Install Tegola
     TEGOLA_PATH=/home/vagrant/tegola
     if [ ! -f $TEGOLA_PATH/tegola ]; then
 
@@ -196,7 +164,7 @@ Vagrant.configure(2) do |config|
       sudo -u postgres createdb bonn
       wget -q -O bonn_osm.sql.tar.gz https://github.com/go-spatial/tegola-example-data/raw/master/bonn_osm.sql.tar.gz
       tar xzf bonn_osm.sql.tar.gz
-      sudo -u postgres psql bonn < bonn_osm.dump
+      sudo -u postgres psql bonn < bonn_osm.dump > /dev/null 2> /dev/null
 
       # Set up tegola's db access
       # permissions stills setup wrong, prolly need sudo -u
@@ -215,40 +183,6 @@ Vagrant.configure(2) do |config|
       echo "Found existing tegola data. Skipping..."
     fi
 
-    # COS 461 Assignments
-    # Assignment 1
-    #sudo apt-get install -y python-dev
-    #curl -sS https://bootstrap.pypa.io/get-pip.py > get-pip.py
-    #sudo python get-pip.py
-    #rm -f get-pip.py
-    # Install old version of tornado before installing jupyter
-    #sudo pip install tornado==4.5.3
-    #sudo pip install jupyter
-    #sudo pip install -U tzupdate
-
-    # Assignment 2
-    #sudo apt-get install -y python-tk
-
-    # Assignment 3
-    #sudo pip install nbconvert
-    #sudo apt-get install -y mininet
-    #sudo apt-get install -y python-numpy
-    #sudo apt-get install -y python-matplotlib
-
-    # Assignment 4
-    #sudo apt-get install -y whois
-    #sudo pip install ipaddress
-
-    # Assignment 6
-    #sudo pip install scapy
-    #sudo apt-get install -y python-scipy
-    #sudo apt-get install -y bind9
-    #sudo cp /vagrant/assignment6/bind/* /etc/bind
-
-    # Assignment 7
-    # sudo apt-get install -y apache2-utils
-    # echo "export GOPATH=/vagrant/assignment1" >> /home/vagrant/.profile
-
     disp "All done!"
 
     # Start in /vagrant instead of /home/vagrant
@@ -256,13 +190,12 @@ Vagrant.configure(2) do |config|
     then
     echo "cd /vagrant" >> /home/vagrant/.bashrc
     fi
+
   SHELL
 
   ## Provisioning to do on each "vagrant up"
   config.vm.provision "shell", run: "always", inline: <<-SHELL
-    sudo tzupdate 2> /dev/null
-    # Assignment 3
-    sudo modprobe tcp_probe port=5001 full=1
+    # Add any required provisioning here:
   SHELL
 
   ## CPU & RAM
@@ -270,6 +203,12 @@ Vagrant.configure(2) do |config|
     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
     vb.memory = 2048
     vb.cpus = 1
+
+    # change ubuntu-bionic-18.04-cloudimg-console.log file location
+    # vb.customize [ "modifyvm", :id, "--uartmode1", "file", File.join(Dir.pwd, "logs/ubuntu-xenial-16.04-cloudimg-console.log") ]
+
+    # disable generating ubuntu-bionic-18.04-cloudimg-console.log file in the shared folder
+    vb.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
   end
 
 end

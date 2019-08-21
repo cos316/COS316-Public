@@ -5,3 +5,6 @@
 
 # Ignore files created during VM setup
 .vagrant
+
+# Currently unused, but log files may be placed here
+/logs
