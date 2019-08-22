@@ -45,8 +45,6 @@ for word in "${keywords[@]}"; do
   fi
 done
 
-echo $regex # for debugging
-
 while IFS='$\n' read -r line; do
     if echo "$line" | grep -Eqi "$regex"; then
       echo "$line" 1>&2
