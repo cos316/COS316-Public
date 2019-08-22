@@ -57,6 +57,8 @@ Vagrant.configure(2) do |config|
   # Tegola config
   config.vm.provision "file", source: "#{vagrant_root}/config_files/tegola", destination: "~/tegola"
 
+  config.vm.provision "file", source: "#{vagrant_root}/config_files/limit_errors.sh", destination: "~/scripts/limit_errors.sh"
+
   ## Provisioning
   config.vm.provision "shell", inline: <<-SHELL
 
@@ -81,6 +83,21 @@ Vagrant.configure(2) do |config|
     disp() { toilet -f mono9 $1; }
     disp "Welcome to COS316"
 
+    # Set correct permissions for bash scripts
+    scripts="$(find /vagrant -name "*.sh")"
+    if [ -n "$scripts" ]; then
+      echo "$scripts" | xargs chmod -v 744
+    fi
+
+    # If the repository was pulled from Windows, convert line breaks to Unix-style
+    $install dos2unix
+    printf "Using dos2unix to convert files to Unix format if necessary..."
+    find /vagrant -name "*" -type f | xargs dos2unix -q
+
+    limit_errors="/home/vagrant/scripts/limit_errors.sh"
+    chmod +x $limit_errors
+    dos2unix -q $limit_errors
+
     $install jq
     disp "Emacs 25"
     $install emacs-nox
@@ -93,7 +110,12 @@ Vagrant.configure(2) do |config|
     source /home/vagrant/.profile # Make sure go environment variables are set
 
     disp "MySQL 5.7"
-    $install mysql-server-5.7
+    MYSQL_PWD="cos316"
+    sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password ${MYSQL_PWD}"
+    sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password ${MYSQL_PWD}"
+    sudo debconf-set-selections <<< "mysql-community-server mysql-community-server/root-pass password ${MYSQL_PWD}"
+    sudo debconf-set-selections <<< "mysql-community-server mysql-community-server/re-root-pass password ${MYSQL_PWD}"
+    $install mysql-server-5.7 2>&1 | $limit_errors
 
     disp "Tinode"
     $install git
@@ -120,15 +142,15 @@ Vagrant.configure(2) do |config|
 
     # Set up the static web files required by tinode
     $install unzip
-    tinode-db -config=${TINODE_PATH}/tinode-db/tinode.conf -data=${TINODE_PATH}/tinode-db/data.json
+    tinode-db -config=${TINODE_PATH}/tinode-db/tinode.conf -data=${TINODE_PATH}/tinode-db/data.json 2>&1 | $limit_errors
     if [ ! -d $TINODE_STATIC ]; then
       echo "Downloading tinode-chat static files..."
       mkdir -p $TINODE_STATIC && cd $TINODE_STATIC
       sudo wget -q -O webapp-master.zip https://github.com/tinode/webapp/archive/master.zip
       sudo wget -q -O tinode-js-master.zip https://github.com/tinode/tinode-js/archive/master.zip
       echo "Downloaded static tinode files to $(pwd) ..."
-      sudo unzip webapp-master.zip
-      sudo unzip tinode-js-master.zip tinode-js-master/src/tinode.js
+      sudo unzip -q webapp-master.zip
+      sudo unzip -q tinode-js-master.zip tinode-js-master/src/tinode.js
       # Now copy contents of unzipped folder into single dir where they are expected
       sudo cp -r webapp-master/* .
       sudo cp -r tinode-js-master/src/tinode.js .
@@ -145,9 +167,7 @@ Vagrant.configure(2) do |config|
     echo "Flottbot installed successfully."
 
     # disp "PostgreSQL"
-    $install postgresql-10
-    $install postgresql-10-postgis-2.4
-    $install postgresql-10-postgis-2.4-scripts
+    $install postgresql-10 postgresql-10-postgis-2.4 postgresql-10-postgis-2.4-scripts 2>&1 | $limit_errors
 
     # # Install Tegola
     TEGOLA_PATH=/home/vagrant/tegola
