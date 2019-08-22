@@ -39,9 +39,9 @@ option you choose, *you only need to install Git __once__, using __one__ of the
 options below.*
 
 * **Installing vanilla Git:** Download [Git](https://git-scm.com/downloads).
-  You will be given many options to choose from
-  during the installation; using all the defaults will be sufficient for this
-  course (you can uncheck "View release notes" at the end).
+  You will be given many options to choose from during the installation;
+  using all the defaults will be sufficient for this course
+  (you can uncheck "View release notes" at the end).
   The installation includes an SSH-capable Bash terminal usually located at
   `C:\Program Files\Git\bin\bash.exe`.
 
