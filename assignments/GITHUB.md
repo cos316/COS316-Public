@@ -34,15 +34,6 @@ After granting this permission, you will also be prompted to select your NetID
 from the class roster, so that your GitHub account ID can be mapped to your NetID.
 **Do not skip this step or it will be impossible to give you credit for the assignments.***
 
-### Follow the instructions for installing vagrant, git and a git-capable terminal
-
-***TODO: Circular? --> Need to have git installed to `git clone`; need `git clone` to
-install vagrant in the A1 instructions. Consider an assignment 0 in a COS316-Public repo***
-
-Once you have access to your repository for the first assignment, read through
-the first part of the instructions.
-These instructions will guide you through setting up your environment so you are
-prepared to develop in Go and interact with GitHub.
 
 ## Do these once per new assignment
 
