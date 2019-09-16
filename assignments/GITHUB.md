@@ -26,9 +26,9 @@ corresponding assignment invitation.
 The first time you do so, you will be prompted to provide GitHub Classroom
 permission to access various parts of your GitHub account. This is required
 in order to allow instructors to view your assignment files, and to allow the
-autograder to find your submissions.
+autograder to find your submissions. Click "Authorize github."
 
-
+<img src="https://github.com/cos316/COS316-Public/blob/master/assignments/images/github-authorize.png" width="500">
 
 ### Associate your GitHub ID with your NetID (One-time only)
 
@@ -36,6 +36,7 @@ After granting this permission, you will also be prompted to select your NetID
 from the class roster, so that your GitHub account ID can be mapped to your NetID.
 **Do not skip this step or it will be impossible to give you credit for the assignments.***
 
+<img src="https://github.com/cos316/COS316-Public/blob/master/assignments/images/github-roster.png" width="500">
 
 
 
@@ -47,7 +48,7 @@ Every assignment has its own invitation link, which you will need to click on
 to get started with that assignment. Be sure you're logged into the GitHub
 account that you will be using for this class.
 
-
+<img src="https://github.com/cos316/COS316-Public/blob/master/assignments/images/github-accept.png" width="500">
 
 
 ### Creating or Joining a Team
@@ -61,6 +62,7 @@ a group without the permission of the other members.*
 Be careful when creating or joining a team, as there is no way for you to change
 teams on your own once you have selected one.
 
+<img src="https://github.com/cos316/COS316-Public/blob/master/assignments/images/github-join.png" width="500">
 
 
 
@@ -72,6 +74,7 @@ personal assignment repository, including the starter code for that assignment.
 Your URL should be of the form:
 `https://github.com/cos316/<assignment#>-<assignment-name>-<team-name>`
 
+<img src="https://github.com/cos316/COS316-Public/blob/master/assignments/images/github-cloneurl.png" width="500">
 
 
 
