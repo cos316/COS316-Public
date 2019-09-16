@@ -28,6 +28,8 @@ permission to access various parts of your GitHub account. This is required
 in order to allow instructors to view your assignment files, and to allow the
 autograder to find your submissions.
 
+![GitHub Authorize](/images/github-authorize.png)
+
 ### Associate your GitHub ID with your NetID (One-time only)
 
 After granting this permission, you will also be prompted to select your NetID
