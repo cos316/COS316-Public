@@ -28,7 +28,7 @@ permission to access various parts of your GitHub account. This is required
 in order to allow instructors to view your assignment files, and to allow the
 autograder to find your submissions.
 
-![GitHub Authorize](/images/github-authorize.png)
+![GitHub Authorize](https://github.com/cos316/COS316-Public/blob/master/assignments/images/github-authorize.png)
 
 ### Associate your GitHub ID with your NetID (One-time only)
 
