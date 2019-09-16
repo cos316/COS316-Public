@@ -28,13 +28,16 @@ permission to access various parts of your GitHub account. This is required
 in order to allow instructors to view your assignment files, and to allow the
 autograder to find your submissions.
 
-![GitHub Authorize](https://github.com/cos316/COS316-Public/blob/master/assignments/images/github-authorize.png)
+![GitHub Authorize](https://github.com/cos316/COS316-Public/blob/master/assignments/images/github-authorize.png|width=750px)
 
 ### Associate your GitHub ID with your NetID (One-time only)
 
 After granting this permission, you will also be prompted to select your NetID
 from the class roster, so that your GitHub account ID can be mapped to your NetID.
 **Do not skip this step or it will be impossible to give you credit for the assignments.***
+
+![GitHub NetID](https://github.com/cos316/COS316-Public/blob/master/assignments/images/github-roster.png|width=750px)
+
 
 
 ## Do these once per new assignment
@@ -44,6 +47,9 @@ from the class roster, so that your GitHub account ID can be mapped to your NetI
 Every assignment has its own invitation link, which you will need to click on
 to get started with that assignment. Be sure you're logged into the GitHub
 account that you will be using for this class.
+
+![GitHub Accept](https://github.com/cos316/COS316-Public/blob/master/assignments/images/github-accept.png|width=750px)
+
 
 ### Creating or Joining a Team
 
@@ -56,6 +62,9 @@ a group without the permission of the other members.*
 Be careful when creating or joining a team, as there is no way for you to change
 teams on your own once you have selected one.
 
+![GitHub Join](https://github.com/cos316/COS316-Public/blob/master/assignments/images/github-join.png|width=750px)
+
+
 ### Getting access to assignment code
 
 Once you have joined a team, you will be provided with a link to your team's
@@ -63,6 +72,9 @@ personal assignment repository, including the starter code for that assignment.
 
 Your URL should be of the form:
 `https://github.com/cos316/<assignment#>-<assignment-name>-<team-name>`
+
+![GitHub Clone](https://github.com/cos316/COS316-Public/blob/master/assignments/images/github-clone.png|width=750px)
+
 
 #### Cloning (downloading) your repository
 
