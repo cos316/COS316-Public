@@ -112,8 +112,8 @@ There are two ways to accomplish this:
 
 #### Syncing your repository with Vagrant
 
-Once you have the assignment code downloaded to your machine, you will need to
-make it accessible from within your Vagrant VM.
+If you are using Vagrant for your assignment, you will need to
+make the downloaded assignment code accessible from within your Vagrant VM.
 
 To do this, you will need to uncomment a line in your Vagrantfile. Find the
 section in your Vagrantfile marked *Synced Assignment Directories*, and replace
