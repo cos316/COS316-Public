@@ -98,6 +98,10 @@ Vagrant.configure(2) do |config|
     chmod +x $limit_errors
     dos2unix -q $limit_errors
 
+    # Update system time
+    $install ntpdate
+    sudo ntpdate pool.ntp.org
+
     $install jq
     disp "Emacs 25"
     $install emacs-nox
@@ -216,6 +220,9 @@ Vagrant.configure(2) do |config|
   ## Provisioning to do on each "vagrant up"
   config.vm.provision "shell", run: "always", inline: <<-SHELL
     # Add any required provisioning here:
+
+    # Synchronize the system clock
+    sudo ntpdate pool.ntp.org
   SHELL
 
   ## CPU & RAM
