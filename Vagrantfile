@@ -102,6 +102,7 @@ Vagrant.configure(2) do |config|
     $install ntpdate
     sudo ntpdate pool.ntp.org
 
+    $install graphviz
     $install jq
     disp "Emacs 25"
     $install emacs-nox
