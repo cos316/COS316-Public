@@ -1,6 +1,7 @@
 #include <fstream>
 #include <string>
 #include <regex>
+#include <math.h>
 #include "caches/lru_variants.h"
 #include "caches/gd_variants.h"
 #include "request.h"
@@ -68,7 +69,7 @@ int main (int argc, char* argv[])
   infile.close();
 
   cout << cacheType << ":" << cache_size << " bytes, " << reqs << " reqs, " << hits << " hits, "
-       << double(hits)/reqs << " hits/reqs " <<  paramSummary << endl;
+       << round(100*double(hits)/reqs) << " hits/reqs(%) " <<  paramSummary << endl;
 
 
 
