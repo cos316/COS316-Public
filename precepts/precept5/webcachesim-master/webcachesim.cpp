@@ -67,8 +67,10 @@ int main (int argc, char* argv[])
 
   infile.close();
 
-  cout << cacheType << ":" << cache_size << " bytes"  << " " << reqs << " reqs," << hits << " hits,"
+  cout << cacheType << ":" << cache_size << " bytes, " << reqs << " reqs, " << hits << " hits, "
        << double(hits)/reqs << " hits/reqs " <<  paramSummary << endl;
+
+
 
   return 0;
 }
