@@ -41,7 +41,7 @@ int main (int argc, char* argv[])
       return 1;
     }
     webcache->setPar(opmatch[1], opmatch[2]);
-    paramSummary += opmatch[2];
+    paramSummary += opmatch[0];
   }
 
   ifstream infile;
@@ -68,8 +68,9 @@ int main (int argc, char* argv[])
 
   infile.close();
 
-  cout << cacheType << ":" << cache_size << " bytes, " << reqs << " reqs, " << hits << " hits, "
-       << round(100*double(hits)/reqs) << " hits/reqs(%) " <<  paramSummary << endl;
+  cout << cacheType << " " << paramSummary << ": " << cache_size << " bytes, " << reqs << " reqs, " << hits << " hits, "
+       << round(100*double(hits)/reqs) << " hits/reqs(%) "  << endl;
+  
 
 
 
