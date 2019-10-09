@@ -104,8 +104,9 @@ Vagrant.configure(2) do |config|
 
     $install graphviz
     $install jq
+    $install firefox
     disp "Emacs 25"
-    $install emacs-nox
+    $install emacs
 
     disp "Go v1.11"
     $install golang-1.11-go
