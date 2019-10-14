@@ -72,6 +72,7 @@ Vagrant.configure(2) do |config|
 
     # disp "APT Updates"
     sudo add-apt-repository -y ppa:gophers/archive 2> /dev/null # For Go 1.11
+    sudo add-apt-repository -y ppa:linuxgndu/sqlitebrowser # For sqlitebrowser
     sudo apt-get -yq -o=Dpkg::Use-Pty=0 update
     sudo apt-get -yq -o=Dpkg::Use-Pty=0 upgrade
 
@@ -114,6 +115,12 @@ Vagrant.configure(2) do |config|
     echo "export GOPATH='/go'" >> /home/vagrant/.profile
     # echo "export GO111MODULE=auto" >> /home/vagrant/.profile
     source /home/vagrant/.profile # Make sure go environment variables are set
+
+    # Install SQLite (for assignment 4)
+    disp "SQLite"
+    $install sqlite
+    $install sqlitebrowser
+    go get github.com/mattn/go-sqlite3
 
     disp "MySQL 5.7"
     MYSQL_PWD="cos316"
@@ -225,6 +232,10 @@ Vagrant.configure(2) do |config|
 
     # Synchronize the system clock
     sudo ntpdate pool.ntp.org
+
+    # Ensure the vagrant user owns the $GOPATH files
+    # This prevents `go get` from failing with a permissions error
+    sudo chown -R vagrant /go  # aka $GOPATH, but that var isn't defined in this scope
   SHELL
 
   ## CPU & RAM
