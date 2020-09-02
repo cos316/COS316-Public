@@ -1,6 +1,6 @@
 # COS316, Assignment 0: Virtual Machines
 
-## Due: September 12, 2019 at 23:00
+## Due: N/A. This assignment walks you through environment setup for the upcoming assignments.
 
 Welcome to COS 316: Principles of Computer System Design!
 
