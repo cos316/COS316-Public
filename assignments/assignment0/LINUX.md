@@ -5,11 +5,19 @@
 If you know what you are doing, and are just looking for commands to paste in a
 terminal, here you go:
 
-```bash
-sudo apt-get update
-sudo apt-add-repository universe
-sudo apt-get install vagrant virtualbox git
-```
+1. Debian, Ubuntu, etc.:
+
+    ```bash
+    sudo apt-get update
+    sudo apt-add-repository universe
+    sudo apt-get install vagrant virtualbox git
+    ```
+
+1. Arch Linux:
+
+    ```bash
+    sudo pacman -S vagrant virtualbox git
+    ```
 
 If you would like further explanation as to what these commands do, read on:
 
