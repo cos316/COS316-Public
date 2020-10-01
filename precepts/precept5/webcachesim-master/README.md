@@ -118,7 +118,7 @@ example usage (admit after 10 requests):
     
 #### Threshold-LRU
 
-does: LRU eviction + admit only after N requests
+does: LRU eviction + admit only above size T
 
 params: t - the size threshold in log form (base 2)
 
