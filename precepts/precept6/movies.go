@@ -44,7 +44,7 @@ func listMoviesByYear(db *sql.DB, year int) {
 	defer stmt.Close()
 
 	// execute the query
-	rows, err := stmt.Query(id)
+	rows, err := stmt.Query(year)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -79,7 +79,7 @@ func listMoviesById(db *sql.DB, id int) {
 }
 
 func addMovie(db *sql.DB, id int, title string, year int, genres string) {
-	stmt, err := db.Prepare("INSERT INTO movies(movieId,title, year, genres) VALUES(?,?,?,?)")
+	stmt, err := db.Prepare("INSERT or REPLACE INTO movies(movieId,title, year, genres) VALUES(?,?,?,?)")
 	if err != nil {
 		log.Fatal(err)
 	}
